@@ -1,0 +1,26 @@
+# pod-definition 
+# to run
+# kubectl create -f pod.yaml
+# to see if the pod is up
+# kubectl get pods 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp
+  labels:
+    app: myapp
+    type: frontend
+spec:
+  containers:
+  - name: myapp-nginx
+    image: nginx
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 8080
+    envFrom:
+      - configMapRef:
+          name: app-config
+

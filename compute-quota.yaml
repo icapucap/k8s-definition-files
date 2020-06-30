@@ -1,0 +1,12 @@
+#quota for namespace
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: compute-quota
+  namespace: new-space
+spec:
+  hard:
+    pods: "5"
+    requests.cpu: "4"
+    limits.cpu: "10"
+    limits.memory: 5Gi

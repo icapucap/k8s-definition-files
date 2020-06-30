@@ -1,0 +1,27 @@
+# replica-set definition
+# to run
+# kubectl create -f replicaset.yaml
+# after update
+# kubectl replace -f replicaset.yaml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-replica-set
+  labels:
+    app: myapp
+    type: frontend
+spec:
+  template:
+    metadata:
+      name: myapp
+      labels:
+        app: myapp
+        type: frontend
+    spec:
+      containers:
+      - name: myapp-nginx
+        image: nginx
+  replicas: 3
+  selector:
+    matchLabels:
+      type: frontend

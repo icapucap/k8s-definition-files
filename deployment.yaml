@@ -1,0 +1,28 @@
+#deployment definition
+# kubectl create -f deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-replica-set
+  labels:
+    app: myapp
+    type: frontend
+spec:
+  template:
+    metadata:
+      name: myapp
+      labels:
+        app: myapp
+        type: frontend
+    spec:
+      containers:
+      - name: myapp-nginx
+        image: nginx
+        resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+  replicas: 3
+  selector:
+    matchLabels:
+      type: frontend
