@@ -9,7 +9,7 @@ metadata:
   name: myapp
   labels:
     app: myapp
-    type: frontend
+
 spec:
   containers:
   - name: myapp-nginx
@@ -20,7 +20,20 @@ spec:
         cpu: "500m"
     ports:
       - containerPort: 8080
-    envFrom:
-      - configMapRef:
-          name: app-config
+    # envFrom:
+    #   - configMapRef:
+    #       name: app-config
+    #   - secretRef:
+    #       name: app-secret
+
+  - name: log-agent
+    image: log-agent
+    resources: 
+      limits:
+          memory: "100Mi"
+          cpu: "100m"
+    ports:
+        - containerPort: 15000
+
+  
 

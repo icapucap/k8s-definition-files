@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp
+  labels:
+    name: myapp
+spec:
+  containers:
+  - name: myapp
+    image: myapp:v1
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 8080
+    #to check if pod is ready
+    #no traffic is routed unless ready
+    readinessProbe:
+      httpGet:
+        path: /myapp/ready
+        port: 8080
+      initialDelaySeconds: 10 #say we know the application takes 10s to load
+      periodSeconds: 4 #how often application should be probed
+      failureThreshold: 6 #min no. of times of probing
+      #tcp method
+      # tcpSocket:
+      #   port: 3306
+
+      #command line method
+      # exec:
+      #     command:
+      #       - cat
+      #       - /myapp/ready
+
+    # liveliness probe checks whether the application is actually working
+    # and not just staying alive
+    livenessProbe:
+      httpGet:
+        path: /myapp/healthy
+        port: 8080
+    
+    #liveliness probe and readiness probe has very similar format wrt code
+

@@ -8,14 +8,14 @@ kind: ReplicaSet
 metadata:
   name: myapp-replica-set
   labels:
-    app: myapp
+    app: App1
     type: frontend
 spec:
   template:
     metadata:
       name: myapp
       labels:
-        app: myapp
+        app: App1
         type: frontend
     spec:
       containers:
